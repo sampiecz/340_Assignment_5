@@ -148,15 +148,22 @@ unsigned binTree::height( Node* r ) const;
   
  Name: inorder
 
- Use:  
+ Use: This function traverse the tree rooted at r. p is the 
+ “visit” operation on each node. To visit r, simply invoke p(r->data). 
 
  Parameters: 
  
  Returns: 
 
  ***************************************************************/
-void inorder( Node*, void(*)(int) );
+void inorder( Node* r, void(* p)(int) );
 {
+	if (!r.empty())
+	{
+		inorder(r.left);
+		cout << r.key << endl;
+		inorder(r.right);
+	}
 }
 
 
@@ -171,8 +178,14 @@ void inorder( Node*, void(*)(int) );
  Returns: 
 
  ***************************************************************/
-void preorder( Node*, void(*)(int) );
+void preorder( Node* r, void(* p)(int) );
 {
+	if (!r.empty())
+	{
+		cout << r.key << endl;
+		inorder(r.left);
+		inorder(r.right);
+	}
 }
 
 
@@ -187,8 +200,14 @@ void preorder( Node*, void(*)(int) );
  Returns: 
 
  ***************************************************************/
-void postorder( Node*, void(*)(int) );
+void postorder( Node* r, void(* p)(int) );
 {
+	if (!r.empty())
+	{
+		inorder(r.left);
+		inorder(r.right);
+		cout << r.key << endl;
+	}
 }
 
 
