@@ -53,14 +53,35 @@ class binTree {
 		void postorder( Node*, void(*)(int) );
 };
 
-// Constructor life
+/***************************************************************
+  
+ Name: 
+
+ Use:  
+
+ Parameters: 
+ 
+ Returns: 
+
+ ***************************************************************/
 Node::Node()
 {
 }
 
-// Constructor life
+/***************************************************************
+  
+ Name: 
+
+ Use:  
+
+ Parameters: 
+ 
+ Returns: 
+
+ ***************************************************************/
 binTree::binTree()
 {
+    root = nullptr;
 }
 
 /***************************************************************
@@ -279,7 +300,7 @@ unsigned binTree::height( Node* r ) const
  Returns: 
 
  ***************************************************************/
-void inorder( Node* r, void(* p)(int) )
+void binTree::inorder( Node* r, void(* p)(int) )
 {
 	if (r != NULL)
 	{
@@ -301,7 +322,7 @@ void inorder( Node* r, void(* p)(int) )
  Returns: 
 
  ***************************************************************/
-void preorder( Node* r, void(* p)(int) )
+void binTree::preorder( Node* r, void(* p)(int) )
 {
 	if (r != NULL)
 	{
@@ -323,7 +344,7 @@ void preorder( Node* r, void(* p)(int) )
  Returns: 
 
  ***************************************************************/
-void postorder( Node* r, void(* p)(int) )
+void binTree::postorder( Node* r, void(* p)(int) )
 {
 	if (r != NULL)
 	{
