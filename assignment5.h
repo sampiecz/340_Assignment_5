@@ -179,7 +179,7 @@ void binTree::postorder( void(* val)(int) )
  ***************************************************************/
 void binTree::insert( Node*& r, int val )
 {
-	if ( r->data == NULL)
+	if ( r == nullptr) 
 	{
 		// node will be root of tree with data x
         r= new Node;
@@ -219,13 +219,13 @@ void binTree::insert( Node*& r, int val )
  ***************************************************************/
 unsigned binTree::size( Node* r ) const
 {
-	if (r->data == NULL)
+	if (r == nullptr)
 	{
 		return 0;
 	}
 	else
 	{
-        size(r->data);
+        return size(r->left) + size(r->right) + 1;
 	}
 }
 
@@ -244,13 +244,25 @@ unsigned binTree::size( Node* r ) const
  ***************************************************************/
 unsigned binTree::height( Node* r ) const
 {
-	if (r == NULL)
+	if (r == nullptr)
 	{
 		return -1;
 	}
 	else
 	{
-        height(r->data);
+        int leftDepth, rightDepth;
+
+        leftDepth = height(r->left);
+        rightDepth = height(r->right);
+
+        if (rightDepth < leftDepth)
+        {
+            return (leftDepth + 1);
+        }
+        else
+        {
+            return (rightDepth + 1);
+        }
 	}
 }
 
