@@ -21,12 +21,14 @@ class Node {
 
     // Method prototypes
     public:
-
-    // Data members 
-    private:
-        // Variable to store node's value
+        // Constructor what upppp
+        Node(); 
+        // Variable to store node's data
+        int data;
         // Variable to store node's left child
+        Node* left;
         // Variable to store node's right child
+        Node* right;
 };
 
 class binTree {
@@ -51,16 +53,121 @@ class binTree {
 		void postorder( Node*, void(*)(int) );
 };
 
+// Constructor life
+Node::Node()
+{
+}
+
+// Constructor life
+binTree::binTree()
+{
+}
+
+/***************************************************************
+  
+ Name: 
+
+ Use:  
+
+ Parameters: 
+ 
+ Returns: 
+
+ ***************************************************************/
+void binTree::insert(int val)
+{
+    insert(root, val);
+}
+
+/***************************************************************
+  
+ Name: 
+
+ Use:  
+
+ Parameters: 
+ 
+ Returns: 
+
+ ***************************************************************/
+unsigned binTree::height() const
+{
+    return height(root);
+}
+
+/***************************************************************
+  
+ Name: 
+
+ Use:  
+
+ Parameters: 
+ 
+ Returns: 
+
+ ***************************************************************/
+unsigned binTree::size() const
+{
+    return size(root);
+}
+
+/***************************************************************
+  
+ Name: 
+
+ Use:  
+
+ Parameters: 
+ 
+ Returns: 
+
+ ***************************************************************/
+void binTree::inorder( void(* val)(int) )
+{
+    inorder(root, val);
+}
+
+/***************************************************************
+  
+ Name: 
+
+ Use:  
+
+ Parameters: 
+ 
+ Returns: 
+
+ ***************************************************************/
+void binTree::preorder( void(* val)(int) )
+{
+    preorder(root, val);
+}
+
+/***************************************************************
+  
+ Name: 
+
+ Use:  
+
+ Parameters: 
+ 
+ Returns: 
+
+ ***************************************************************/
+void binTree::postorder( void(* val)(int) )
+{
+    postorder(root, val);
+}
 
 /***************************************************************
   
  Name: insert
 
- Use: This function is used to insert a node with the data value 
+ Use: This function is used to insert a node with the data data 
  x in a binary (sub-)tree at root r, applying the following 
  technique: if the tree is empty, then the new node will be 
- the root of the tree with the value x; otherwise, x is inserted 
- in the left or right sub-tree of r, depending on the sub-trees’
+ the root of the tree with the data x; otherwise, x is inserted 
+ in the left or->right sub-tree of r, depending on the sub-trees’
  sizes. If the size of the right sub-tree is less than the size 
  of the left sub-tree, x is inserted in the right sub-tree; 
  otherwise x is inserted in the left sub-tree. 
@@ -70,25 +177,29 @@ class binTree {
  Returns: None. 
 
  ***************************************************************/
-void binTree::insert( Node*& r, int x )
+void binTree::insert( Node*& r, int val )
 {
-	if ( r.empty() )
+	if ( r->data == NULL)
 	{
-		// node will be root of tree with value x
+		// node will be root of tree with data x
+        r= new Node;
+        r->data = val;
+        r->left = nullptr;
+        r->right = nullptr;
 	}
 	else
 	{
-		// x is inserted in the left or right sub-tree of r
+		// x is inserted in the left or->right sub-tree of r
 		// depending on the sub tree's sizes.
 
 		// if right sub tree less than size of left sub tree, x is inserted into the left subtree
-		if ( r.right < r.left )
+		if ( r->right < r->left )
 		{
-			r.left = x;
+			insert(r->left, val);
 		}
 		else
 		{
-			r.right = x;
+			insert(r->right, val);
 		}
 	}
 }
@@ -106,15 +217,15 @@ void binTree::insert( Node*& r, int x )
  Returns: 
 
  ***************************************************************/
-unsigned binTree::size( Node* r ) const;
+unsigned binTree::size( Node* r ) const
 {
-	if (r.empty())
+	if (r->data == NULL)
 	{
 		return 0;
 	}
 	else
 	{
-		return r.size();
+        size(r->data);
 	}
 }
 
@@ -131,15 +242,15 @@ unsigned binTree::size( Node* r ) const;
  Returns: 
 
  ***************************************************************/
-unsigned binTree::height( Node* r ) const;
+unsigned binTree::height( Node* r ) const
 {
-	if (r.empty())
+	if (r == NULL)
 	{
 		return -1;
 	}
 	else
 	{
-		return r.height();
+        height(r->data);
 	}
 }
 
@@ -156,13 +267,13 @@ unsigned binTree::height( Node* r ) const;
  Returns: 
 
  ***************************************************************/
-void inorder( Node* r, void(* p)(int) );
+void inorder( Node* r, void(* p)(int) )
 {
-	if (!r.empty())
+	if (r != NULL)
 	{
-		inorder(r.left);
-		cout << r.key << endl;
-		inorder(r.right);
+		inorder(r->left, p);
+        p(r->data);
+		inorder(r->right, p);
 	}
 }
 
@@ -178,13 +289,13 @@ void inorder( Node* r, void(* p)(int) );
  Returns: 
 
  ***************************************************************/
-void preorder( Node* r, void(* p)(int) );
+void preorder( Node* r, void(* p)(int) )
 {
-	if (!r.empty())
+	if (r != NULL)
 	{
-		cout << r.key << endl;
-		inorder(r.left);
-		inorder(r.right);
+        p(r->data);
+		inorder(r->left, p);
+		inorder(r->right, p);
 	}
 }
 
@@ -200,13 +311,13 @@ void preorder( Node* r, void(* p)(int) );
  Returns: 
 
  ***************************************************************/
-void postorder( Node* r, void(* p)(int) );
+void postorder( Node* r, void(* p)(int) )
 {
-	if (!r.empty())
+	if (r != NULL)
 	{
-		inorder(r.left);
-		inorder(r.right);
-		cout << r.key << endl;
+		inorder(r->left, p);
+		inorder(r->right, p);
+        p(r->data);
 	}
 }
 
