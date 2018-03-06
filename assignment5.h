@@ -5,8 +5,7 @@
  Z-ID: Z1732715
  Section: 1
  TA: 
- Date Due: March 05, 2018
- 
+ Date Due: March 05, 2018 
  Purpose: 
  ************************************************************/
 #ifndef ASSIGNMENT5
@@ -55,13 +54,13 @@ class binTree {
 
 /***************************************************************
   
- Name: 
+ Name: Node 
 
- Use:  
+ Use: Constructor for node class. 
 
- Parameters: 
+ Parameters: None. 
  
- Returns: 
+ Returns: None. 
 
  ***************************************************************/
 Node::Node()
@@ -70,13 +69,13 @@ Node::Node()
 
 /***************************************************************
   
- Name: 
+ Name: binTree 
 
- Use:  
+ Use: Constructor for binTree class. 
 
- Parameters: 
+ Parameters: None. 
  
- Returns: 
+ Returns: None. 
 
  ***************************************************************/
 binTree::binTree()
@@ -86,13 +85,13 @@ binTree::binTree()
 
 /***************************************************************
   
- Name: 
+ Name: insert 
 
- Use:  
+ Use: Calls private method and passes in root and a value.
 
- Parameters: 
+ Parameters: An integer value. 
  
- Returns: 
+ Returns: None. 
 
  ***************************************************************/
 void binTree::insert(int val)
@@ -102,13 +101,14 @@ void binTree::insert(int val)
 
 /***************************************************************
   
- Name: 
+ Name: height 
 
- Use:  
+ Use: Returns the height. 
 
- Parameters: 
+ Parameters: None. 
  
- Returns: 
+ Returns: An unsigned value that is the result of the private
+ height method.
 
  ***************************************************************/
 unsigned binTree::height() const
@@ -118,13 +118,14 @@ unsigned binTree::height() const
 
 /***************************************************************
   
- Name: 
+ Name: size 
 
- Use:  
+ Use: Returns the size of the binary tree.
 
- Parameters: 
+ Parameters: None. 
  
- Returns: 
+ Returns: An unsigned value that is the result of the private
+ size method.
 
  ***************************************************************/
 unsigned binTree::size() const
@@ -134,13 +135,13 @@ unsigned binTree::size() const
 
 /***************************************************************
   
- Name: 
+ Name: inorder 
 
- Use:  
+ Use: Calls the private inorder method. 
 
- Parameters: 
+ Parameters: val 
  
- Returns: 
+ Returns: None. 
 
  ***************************************************************/
 void binTree::inorder( void(* val)(int) )
@@ -150,13 +151,13 @@ void binTree::inorder( void(* val)(int) )
 
 /***************************************************************
   
- Name: 
+ Name: preorder 
 
- Use:  
+ Use: Calls private preorder method. 
 
- Parameters: 
+ Parameters: val 
  
- Returns: 
+ Returns: None. 
 
  ***************************************************************/
 void binTree::preorder( void(* val)(int) )
@@ -166,13 +167,13 @@ void binTree::preorder( void(* val)(int) )
 
 /***************************************************************
   
- Name: 
+ Name: postorder 
 
- Use:  
+ Use: Calls private postorder method.
 
- Parameters: 
+ Parameters: val 
  
- Returns: 
+ Returns: None. 
 
  ***************************************************************/
 void binTree::postorder( void(* val)(int) )
@@ -193,7 +194,7 @@ void binTree::postorder( void(* val)(int) )
  of the left sub-tree, x is inserted in the right sub-tree; 
  otherwise x is inserted in the left sub-tree. 
  
- Parameters: 
+ Parameters: Reference to Node pointer r. Integer called val. 
  
  Returns: None. 
 
@@ -203,7 +204,7 @@ void binTree::insert( Node*& r, int val )
 	if ( r == nullptr) 
 	{
 		// node will be root of tree with data x
-        r= new Node;
+        r = new Node;
         r->data = val;
         r->left = nullptr;
         r->right = nullptr;
@@ -214,13 +215,13 @@ void binTree::insert( Node*& r, int val )
 		// depending on the sub tree's sizes.
 
 		// if right sub tree less than size of left sub tree, x is inserted into the left subtree
-		if ( r->right < r->left )
+		if ( size(r->right) < size(r->left) )
 		{
-			insert(r->left, val);
+			insert(r->right, val);
 		}
 		else
 		{
-			insert(r->right, val);
+			insert(r->left, val);
 		}
 	}
 }
@@ -233,9 +234,9 @@ void binTree::insert( Node*& r, int val )
  Use: This function returns the number of nodes in the tree 
  rooted at r. If the tree is empty, the size is 0. 
  
- Parameters: 
+ Parameters: Pointer to Node r. 
  
- Returns: 
+ Returns: Unsigned.  
 
  ***************************************************************/
 unsigned binTree::size( Node* r ) const
@@ -246,7 +247,7 @@ unsigned binTree::size( Node* r ) const
 	}
 	else
 	{
-        return size(r->left) + size(r->right) + 1;
+        return 1 + size(r->left) + size(r->right);
 	}
 }
 
@@ -258,9 +259,9 @@ unsigned binTree::size( Node* r ) const
  Use: This function returns the height of the tree rooted at r. 
  If the tree is empty, the size is -1. 
  
- Parameters: 
+ Parameters: Pointer to Node r. 
  
- Returns: 
+ Returns: None.
 
  ***************************************************************/
 unsigned binTree::height( Node* r ) const
@@ -271,18 +272,17 @@ unsigned binTree::height( Node* r ) const
 	}
 	else
 	{
-        int leftDepth, rightDepth;
 
-        leftDepth = height(r->left);
-        rightDepth = height(r->right);
+        int leftDepth = height(r->left);
+        int rightDepth = height(r->right);
 
         if (rightDepth < leftDepth)
         {
-            return (leftDepth + 1);
+            return leftDepth + 1;
         }
         else
         {
-            return (rightDepth + 1);
+            return rightDepth + 1;
         }
 	}
 }
@@ -295,9 +295,9 @@ unsigned binTree::height( Node* r ) const
  Use: This function traverse the tree rooted at r. p is the 
  “visit” operation on each node. To visit r, simply invoke p(r->data). 
 
- Parameters: 
+ Parameters: Pointer to Node r. Pointer to p. 
  
- Returns: 
+ Returns: None.
 
  ***************************************************************/
 void binTree::inorder( Node* r, void(* p)(int) )
@@ -315,11 +315,11 @@ void binTree::inorder( Node* r, void(* p)(int) )
   
  Name: preorder
 
- Use:  
+ Use: Recursively traverses tree in preorder. 
 
- Parameters: 
+ Parameters: Pointer to Node r. Pointer to p. 
  
- Returns: 
+ Returns: None.
 
  ***************************************************************/
 void binTree::preorder( Node* r, void(* p)(int) )
@@ -327,8 +327,8 @@ void binTree::preorder( Node* r, void(* p)(int) )
 	if (r != NULL)
 	{
         p(r->data);
-		inorder(r->left, p);
-		inorder(r->right, p);
+		preorder(r->left, p);
+		preorder(r->right, p);
 	}
 }
 
@@ -337,19 +337,19 @@ void binTree::preorder( Node* r, void(* p)(int) )
   
  Name: postorder
 
- Use:  
+ Use: Recursively traverses binary tree. 
 
- Parameters: 
+ Parameters: Pointer to Node r. Pointer to p. 
  
- Returns: 
+ Returns: None. 
 
  ***************************************************************/
 void binTree::postorder( Node* r, void(* p)(int) )
 {
 	if (r != NULL)
 	{
-		inorder(r->left, p);
-		inorder(r->right, p);
+		postorder(r->left, p);
+		postorder(r->right, p);
         p(r->data);
 	}
 }
